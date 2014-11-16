@@ -1,7 +1,6 @@
 package com.paranoidalien.prototype.pachinko3.main.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.paranoidalien.prototype.pachinko3.main.PachinkoGame;

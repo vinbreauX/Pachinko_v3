@@ -21,10 +21,6 @@ public class MenuScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    //private SpriteBatch batch;
-    //private Sprite bgSprite;
-    private Texture bgTexture = new Texture(Gdx.files.internal("backgrounds/pachinkoBack_01.png"));
-
     static final int W_WIDTH = 480;
     static final int W_HEIGHT = 800;
 
@@ -60,7 +56,7 @@ public class MenuScreen implements Screen {
     }
 
     private void handleInput() {
-        if(Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched()) {
             GAME.musicBox.stopBGAmbient1();
             GAME.musicBox.playMouseClick();
 
