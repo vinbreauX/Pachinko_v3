@@ -1,6 +1,5 @@
 package com.paranoidalien.prototype.pachinko3.main.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -32,6 +31,8 @@ public class MenuScreen implements Screen {
     public MenuScreen(final PachinkoGame gam) {
         GAME = gam;
 
+        GAME.musicBox.playBGAmbient1();
+
         GAME.titleFont.setColor(0.9f, 0.5f, 0.2f, 1);
         GAME.bodyFont.setColor(0.7f, 0.3f, 0, 1);
 
@@ -59,7 +60,14 @@ public class MenuScreen implements Screen {
     }
 
     private void handleInput() {
+        if(Gdx.input.isTouched()) {
+            GAME.musicBox.stopBGAmbient1();
+            GAME.musicBox.playMouseClick();
 
+            GAME.setScreen(new GameScreen(GAME));
+
+            dispose();
+        }
     }
 
     @Override

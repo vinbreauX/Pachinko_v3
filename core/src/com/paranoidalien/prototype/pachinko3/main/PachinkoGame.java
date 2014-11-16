@@ -8,6 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.paranoidalien.prototype.pachinko3.main.managers.MusicBox;
 import com.paranoidalien.prototype.pachinko3.main.screens.MenuScreen;
 
 public class PachinkoGame extends Game {
@@ -17,14 +18,18 @@ public class PachinkoGame extends Game {
     public static final int HEIGHT = 800;
 
     public SpriteBatch batch;
+
     public BitmapFont titleFont;
     public BitmapFont bodyFont;
-
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+
+    public MusicBox musicBox;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
+
+        musicBox = new MusicBox();
 
         createFonts();
 
@@ -34,12 +39,14 @@ public class PachinkoGame extends Game {
     private void createFonts() {
         FileHandle fontFile = Gdx.files.internal("fonts/journey.ttf");
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
-        titleFont = generator.generateFont(64);
-        bodyFont = generator.generateFont(32);
+        titleFont = generator.generateFont(HEIGHT / WIDTH * 60);
+        bodyFont = generator.generateFont(HEIGHT / WIDTH * 32);
         generator.dispose();
     }
 
-    public void render() { super.render(); }
+    public void render() {
+        super.render();
+    }
 
     public void dispose() {
         batch.dispose();
