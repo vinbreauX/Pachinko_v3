@@ -1,12 +1,13 @@
 package com.paranoidalien.prototype.pachinko3.main.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.paranoidalien.prototype.pachinko3.main.PachinkoGame;
 
 /**
@@ -19,26 +20,25 @@ public class MenuScreen implements Screen {
     final PachinkoGame GAME;
 
     private OrthographicCamera camera;
+    private Viewport viewport;
 
-    private SpriteBatch batch;
-    private Sprite bgSprite;
+    //private SpriteBatch batch;
+    //private Sprite bgSprite;
     private Texture bgTexture = new Texture(Gdx.files.internal("backgrounds/pachinkoBack_01.png"));
 
-    static final int W_WIDTH = 30;
-    static final int W_HEIGHT = 50;
+    static final int W_WIDTH = 480;
+    static final int W_HEIGHT = 800;
 
     public MenuScreen(final PachinkoGame gam) {
         GAME = gam;
 
-        batch = new SpriteBatch();
+        GAME.titleFont.setColor(0.9f, 0.5f, 0.2f, 1);
+        GAME.bodyFont.setColor(0.7f, 0.3f, 0, 1);
 
-        camera = new OrthographicCamera(30, 50);
+        camera = new OrthographicCamera(W_WIDTH, W_HEIGHT);
+        viewport = new FitViewport(480, 800, camera);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
-
-        bgSprite = new Sprite(bgTexture);
-        bgSprite.setSize(30, 50);
-        bgSprite.setPosition(0, 0);
 
     }
 
@@ -49,11 +49,12 @@ public class MenuScreen implements Screen {
         handleInput();
 
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
+        GAME.batch.setProjectionMatrix(camera.combined);
 
-        batch.begin();
-        bgSprite.draw(batch);
-        batch.end();
+        GAME.batch.begin();
+        GAME.titleFont.draw(GAME.batch, GAME.TITLE, 5, (W_HEIGHT - GAME.titleFont.getScaleY()) - 10);
+        GAME.bodyFont.draw(GAME.batch, "Click anywhere to play", 5, (W_HEIGHT - GAME.titleFont.getScaleY()) - 50);
+        GAME.batch.end();
 
     }
 
@@ -63,7 +64,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override
