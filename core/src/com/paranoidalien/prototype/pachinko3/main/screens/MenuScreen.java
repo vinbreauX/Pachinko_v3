@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.paranoidalien.prototype.pachinko3.main.PachinkoGame;
@@ -23,6 +22,7 @@ public class MenuScreen implements Screen {
 
     static final int W_WIDTH = 480;
     static final int W_HEIGHT = 800;
+
 
     public MenuScreen(final PachinkoGame gam) {
         GAME = gam;
