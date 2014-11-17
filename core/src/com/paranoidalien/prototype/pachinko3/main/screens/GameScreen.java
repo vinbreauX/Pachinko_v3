@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -42,6 +45,9 @@ public class GameScreen implements Screen {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 
         gameStage = new Stage(viewport);
+
+        BackgroundImage backgroundImage = new BackgroundImage();
+        gameStage.addActor(backgroundImage);
 
         camera.update();
     }
@@ -93,4 +99,14 @@ public class GameScreen implements Screen {
     public void dispose() {
         gameStage.dispose();
     }
+
+    public class BackgroundImage extends Actor {
+        Texture texture = new Texture(Gdx.files.internal("backgrounds/PopbotPinkBG.png"));
+
+        @Override
+        public  void draw(Batch batch, float alpha) {
+            batch.draw(texture, 0, 0);
+        }
+    }
+
 }
