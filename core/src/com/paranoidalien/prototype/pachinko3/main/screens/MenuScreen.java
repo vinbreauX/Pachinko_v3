@@ -36,11 +36,11 @@ public class MenuScreen implements Screen {
         viewport = new FitViewport(480, 800, camera);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
-
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0.025f, 0.075f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         handleInput();
@@ -52,7 +52,6 @@ public class MenuScreen implements Screen {
         GAME.titleFont.draw(GAME.batch, GAME.TITLE, 5, (W_HEIGHT - GAME.titleFont.getScaleY()) - 10);
         GAME.bodyFont.draw(GAME.batch, "Click anywhere to play", 5, (W_HEIGHT - GAME.titleFont.getScaleY()) - 50);
         GAME.batch.end();
-
     }
 
     private void handleInput() {
