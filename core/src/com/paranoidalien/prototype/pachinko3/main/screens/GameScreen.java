@@ -9,10 +9,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.paranoidalien.prototype.pachinko3.main.PachinkoGame;
-import com.paranoidalien.prototype.pachinko3.main.actors.GameBall;
+import com.paranoidalien.prototype.pachinko3.main.managers.GameRenderer;
+import com.paranoidalien.prototype.pachinko3.main.managers.GameWorld;
 
 /**
  * Project: Pachinko_3
@@ -23,44 +23,52 @@ public class GameScreen implements Screen {
 
     final PachinkoGame GAME;
 
-    private OrthographicCamera camera;
+    private Stage guiStage;
+    private GameWorld world;
+    private GameRenderer renderer;
+    private OrthographicCamera guiCamera;
     private Viewport viewport;
 
-    static final int W_WIDTH = Gdx.graphics.getWidth()/160;
-    static final int W_HEIGHT = Gdx.graphics.getHeight()/160;
+    public static final int SCREEN_WIDTH = 480;
+    public static final int SCREEN_HEIGHT = 800;
 
-    public Stage gameStage;
 
     public GameScreen(final PachinkoGame g) {
         this.GAME = g;
+        this.viewport = new ExtendViewport(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        viewport = new FitViewport(W_WIDTH, W_HEIGHT, camera);
+        this.guiStage = new Stage();
+        this.guiStage.setViewport(viewport);
 
-        GAME.musicBox.playBGAmbient2();
+        guiCamera = (OrthographicCamera) guiStage.getCamera();
+        world = new GameWorld();
+        renderer = new GameRenderer(world);
 
-        camera = new OrthographicCamera(W_WIDTH, W_HEIGHT);
-        viewport = new ExtendViewport(480, 800, camera);
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        // add GUI actors to stage here
+    }
 
-        gameStage = new Stage(viewport);
+    @Override
+    public void show() {
 
-        BackgroundImage backgroundImage = new BackgroundImage();
 
-        gameStage.addActor(backgroundImage);
-
-        camera.update();
     }
 
     @Override
     public void render(float delta) {
+
+        guiCamera.position.set(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        guiCamera.update();
 
         handleInput();
 
-        camera.update();
+        world.update(delta);    // update the box2D world
+        guiStage.act(delta);    // update the GUI
 
-        gameStage.draw();
+        renderer.render();      // draw the box2d world
+        guiStage.draw();        // draw the GUI
     }
 
     public void handleInput() {
@@ -71,13 +79,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        //viewport.update(width, height);
     }
 
-    @Override
-    public void show() {
-
-    }
 
     @Override
     public void hide() {
@@ -96,14 +100,15 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        gameStage.dispose();
+        guiStage.dispose();
     }
+
 
     public class BackgroundImage extends Actor {
         Texture texture = new Texture(Gdx.files.internal("backgrounds/PopbotPinkBG.png"));
 
         @Override
-        public  void draw(Batch batch, float alpha) {
+        public void draw(Batch batch, float alpha) {
             batch.draw(texture, 0, 0);
         }
     }
