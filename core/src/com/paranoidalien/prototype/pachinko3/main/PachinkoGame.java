@@ -39,7 +39,7 @@ public class PachinkoGame extends Game {
     private void createFonts() {
         FileHandle fontFile = Gdx.files.internal("fonts/journey.ttf");
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
-        titleFont = generator.generateFont(HEIGHT / WIDTH * 60);
+        titleFont = generator.generateFont(HEIGHT / WIDTH * 100);
         bodyFont = generator.generateFont(HEIGHT / WIDTH * 32);
         generator.dispose();
     }

@@ -29,8 +29,8 @@ public class MenuScreen implements Screen {
 
         GAME.musicBox.playBGAmbient1();
 
-        GAME.titleFont.setColor(0.9f, 0.5f, 0.2f, 1);
-        GAME.bodyFont.setColor(0.7f, 0.3f, 0, 1);
+        GAME.titleFont.setColor(0.98f, 0.65f, 0.94f, 1);
+        GAME.bodyFont.setColor(0.94f, 0.36f, 0.37f, 1);
 
         camera = new OrthographicCamera(W_WIDTH, W_HEIGHT);
         viewport = new FitViewport(480, 800, camera);
@@ -40,7 +40,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.025f, 0.075f, 0.1f, 1);
+        Gdx.gl.glClearColor(0.2f, 0.105f, 0.188f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         handleInput();
@@ -50,7 +50,7 @@ public class MenuScreen implements Screen {
 
         GAME.batch.begin();
         GAME.titleFont.draw(GAME.batch, GAME.TITLE, 5, (W_HEIGHT - GAME.titleFont.getScaleY()) - 10);
-        GAME.bodyFont.draw(GAME.batch, "Click anywhere to play", 5, (W_HEIGHT - GAME.titleFont.getScaleY()) - 50);
+        GAME.bodyFont.draw(GAME.batch, "Click anywhere to play", 5, (W_HEIGHT - GAME.titleFont.getScaleY()) - 75);
         GAME.batch.end();
     }
 

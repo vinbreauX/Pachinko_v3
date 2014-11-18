@@ -26,30 +26,27 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    static final int W_WIDTH = 480;
-    static final int W_HEIGHT = 800;
+    static final int W_WIDTH = Gdx.graphics.getWidth()/160;
+    static final int W_HEIGHT = Gdx.graphics.getHeight()/160;
 
     public Stage gameStage;
 
     public GameScreen(final PachinkoGame g) {
         this.GAME = g;
 
-        viewport = new FitViewport(480, 800, camera);
+        viewport = new FitViewport(W_WIDTH, W_HEIGHT, camera);
 
         GAME.musicBox.playBGAmbient2();
 
         camera = new OrthographicCamera(W_WIDTH, W_HEIGHT);
-        viewport = new ExtendViewport(W_WIDTH, W_HEIGHT, camera);
+        viewport = new ExtendViewport(480, 800, camera);
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 
         gameStage = new Stage(viewport);
 
         BackgroundImage backgroundImage = new BackgroundImage();
 
-        GameBall gameBall = new GameBall();
-
         gameStage.addActor(backgroundImage);
-        gameStage.addActor(gameBall);
 
         camera.update();
     }
