@@ -10,4 +10,7 @@ public class GameVars {
     public static final int W_WIDTH = 480;
     public static final int W_HEIGHT = 800;
 
+    public static final short BIT_BALL = 2;
+    public static final short BIT_WALLS = 4;
+
 }
